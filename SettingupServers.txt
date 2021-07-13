@@ -1,0 +1,77 @@
+These are the servers that have to be installed 
+
+
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install node-red
+sudo apt-get install mosquitto
+sudo apt-get install mosquitto clients
+
+# The next part of this will be to set up the MQTT Broker
+# all of the configs are there 
+
+# /etc/mosquitto
+
+# create a file called pwfile in the mosquitto folder
+# and put the user and password in it seperated by a colon
+# password file should follow this format
+# username:password
+# steve:qwerty  (this is an example)
+
+# you then use mosquitto_passwd -U pwfile to hash it
+
+# Also you need to add the following 3 lines to the conf file
+
+# allow_anonymous false
+# password_file /etc/mosquitto/pwfile
+# listener 1883
+
+# example of how to start the server - u is the user -P is password
+# To configure the user name and password when starting  server -u is username -P is password
+# -u testnode -P admin -t is the topic
+#
+# mosquitto_sub -d -u testnode -P admin -t dev/test
+#
+# This is how you can see if the service is running 
+# netstat -an | grep 1883
+
+
+
+
+
+
+###########################SQLiteDB has issues with phpmyadmin Therefore I've tried to change this to mySQL and php a 
+###########################traditional lamp stack. 
+
+# next is to setup the SQLiteDB with an interface 
+# This will be done by first installing apache2 
+# Then php and the modules needed to connect to the DB
+
+sudo apt-get install apache2
+sudo apt-get install php libapache2-mod-php php-sqlite3 -y
+sudo apt-get install sqlite3
+
+#Setting up the php server you need to incldue the following
+# sudo nano /etc/apache2/mods-enabled/dir.conf
+# then add index.php in front of the index.html
+# in /var/www/html create a file index.php 
+# write this <?php phpinfo(); ?> and then save it 
+# Now try to enter the ip of the server in a browswer and the PHP info should show.
+
+# Next install the phpLiteAdmin_v1-9-7-1 check phpliteadmin.org for latest
+wget https://bitbucket.org/phpliteadmin/public/downloads/phpLiteAdmin_v1-9-8-2.zip
+
+
+
+# mounting the USB for the DB 
+# 1. to show all disks
+# sudo fdisk -l 
+
+# 2. make the dir to mount in 
+# mkdir /media/DB
+# mount /dev/(the code from step 1)  /media/DB
+
+# 
+
+
+

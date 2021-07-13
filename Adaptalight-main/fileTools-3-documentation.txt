@@ -1,0 +1,47 @@
+fileTools-3.py
+
+
+This is a tool that connects to the Apogee and reads the file 
+ApogeeConnectLog.csv 
+
+It then uses MQTT to send to a client that has 
+username:testnode
+password:admin
+
+It sends to a topic dev/test on the raspberry pi
+
+
+
+
+-u testnode -P admin
+netstat -an | grep 1883
+
+all of the configs are there
+/etc/mosquitto
+
+you have to make a pwfile for the password then use mosquitto_passwd -U pwfile to hash it
+Also you need to add the following to the conf file
+
+allow_anonymous false
+password_file /etc/mosquitto/pwfile
+listener 1883
+
+
+password file should follow this format
+
+username:password
+steve:qwerty
+
+example of how to start the server - u is the user -P is password -t is the topic
+
+ mosquitto_sub -d -u testnode -P admin -t dev/test -v
+
+
+mosquitto_sub -d -u testnode -P admin -t dev/test
+
+
+This is the formula for calibration from Kuhlgert 2016
+(PAR=white×0.65847+ red×−1.60537 + green×−2.30216 +blue×−0.50019).
+
+
+PAR = (white * White 0.65847) + (Red*1.60537)+(Green*2.30216)+(Blue* 0.50019)
